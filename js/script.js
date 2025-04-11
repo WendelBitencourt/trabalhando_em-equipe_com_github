@@ -22,7 +22,7 @@ function validateLogin() {
     messageElement.style.display = "block";
 
     setTimeout(() => {
-      window.location.href = "#";
+      window.location.href = "operations.html";
     }, 2000);
   } else {
     messageElement.textContent = "Usuário ou senha incorretos!";
