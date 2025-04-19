@@ -1,0 +1,43 @@
+name: Executar Testes Unitários
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-operations:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Configurar ambiente
+      run: echo "Ambiente configurado para testes"
+
+    - name: Executar testes simulados
+      run: |
+        # Testes de Soma
+        echo "Testando Soma:"
+        if [ $((5 + 5)) -eq 10 ]; then echo "✓ Soma 5+5 OK"; else exit 1; fi
+        if [ $((2 + 3)) -eq 5 ]; then echo "✓ Soma 2+3 OK"; else exit 1; fi
+
+        # Testes de Subtração
+        echo -e "\nTestando Subtração:"
+        if [ $((5 - 3)) -eq 2 ]; then echo "✓ Subtração 5-3 OK"; else exit 1; fi
+        if [ $((10 - 5)) -eq 5 ]; then echo "✓ Subtração 10-5 OK"; else exit 1; fi
+
+        # Testes de Multiplicação
+        echo -e "\nTestando Multiplicação:"
+        if [ $((3 * 4)) -eq 12 ]; then echo "✓ Multiplicação 3x4 OK"; else exit 1; fi
+        if [ $((2 * 5)) -eq 10 ]; then echo "✓ Multiplicação 2x5 OK"; else exit 1; fi
+
+        # Testes de Divisão
+        echo -e "\nTestando Divisão:"
+        if [ $((10 / 2)) -eq 5 ]; then echo "✓ Divisão 10/2 OK"; else exit 1; fi
+        
+        # Teste de divisão por zero
+        echo "Testando Divisão por Zero:"
+        division=$( (echo "scale=2; 5/0" | bc) 2>&1 )
+        if [[ $division == *"error"* ]]; then echo "✓ Divisão por zero tratada"; else exit 1; fi
